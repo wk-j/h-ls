@@ -11,4 +11,5 @@ Executable HLs
   buildable: True
   build-depends:
       base -any,
-      directory -any
+      directory -any,
+      ansi-terminal -any

@@ -1,6 +1,18 @@
-import System.Directory (getDirectoryContents)
-import System.Environment (getArgs)
+{-# LANGUAGE LambdaCase #-}
 
+import System.Directory (getDirectoryContents, doesFileExist)
+import System.Environment (getArgs)
+import System.Console.ANSI
+
+showResult x =
+  doesFileExist x >>= \case
+    True -> 
+        do setSGR [SetColor Foreground Vivid Yellow]
+           putStrLn x
+    False ->
+        do setSGR [SetColor Foreground Vivid Green]
+           putStrLn x
+      
 main = do
     args <- getArgs
     let path = if (length args) == 0
@@ -10,4 +22,4 @@ main = do
                    head args
 
     contents <- getDirectoryContents path
-    mapM_ putStrLn $ contents
+    mapM_ showResult $ contents
